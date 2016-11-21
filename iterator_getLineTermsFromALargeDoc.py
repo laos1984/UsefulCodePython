@@ -44,7 +44,7 @@ def getLineTermsofLongDoc(fpath):
 
 
 if __name__ == '__main__':
-  fpath='alading_prepared_dedup_normalized.txt'
+  fpath='test.txt'
   
   #for iterator
   with open(fpath,'rb') as f:
