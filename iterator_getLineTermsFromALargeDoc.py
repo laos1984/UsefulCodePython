@@ -20,10 +20,9 @@ class getLineTermsofLongDoc(object):
     if line:
       terms=line.strip().split('\t')
       if len(terms)==5:
-        r=""
-        if terms[4]!="NULL":
-          r=terms[4]
-        return r
+        if terms[4]=="NULL":
+          terms[4]=""
+        return terms
       else: # skip some bad lines
         print len(terms)
         self.next()
@@ -37,10 +36,9 @@ def getLineTermsofLongDoc(fpath):
     terms=line.strip().split('\t')
     if len(terms)!=5:#skip bad lines as normal functions
       continue
-    r=""
-    if terms[4]!="NULL":
-      r=terms[4]
-    yield r #no return
+    if terms[4]=="NULL":
+      terms[4]=""
+    yield terms #no return
 
 
 if __name__ == '__main__':
@@ -48,12 +46,14 @@ if __name__ == '__main__':
   
   #for iterator
   with open(fpath,'rb') as f:
-    for term in getLineTermsofLongDoc(f):
-      print term
+    for idx, terms in enumerate(getLineTermsofLongDoc(f)):
+      print idx
+      print terms
   
   #for yield
-  for term in getLineTerms(fpath):
-    print term
+  for idx, terms in enumerate(getLineTermsofLongDoc(fpath)):
+    print idx
+    print terms
 
 
 
